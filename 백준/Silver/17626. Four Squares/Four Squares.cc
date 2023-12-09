@@ -4,13 +4,6 @@ using namespace std;
 
 int dp[50001]{ 0 };
 
-void makeDp(int n) {
-	for (int i = 1; i * i <= n; i++) {
-		if (dp[n] == 0) dp[n] = dp[i * i] + dp[n - i * i];
-		else dp[n] = min(dp[n], dp[i * i] + dp[n - i * i]);
-	}
-}
-
 int main() {
 	ios_base::sync_with_stdio(0);
 	cin.tie(0);
