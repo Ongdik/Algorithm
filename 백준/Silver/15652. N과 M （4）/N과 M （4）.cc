@@ -7,9 +7,7 @@ int n, m;
 
 void makeBT() {
 	if (v.size() == m) {
-		for (int i : v) {
-			cout << i << " ";
-		}
+		for (int i : v) cout << i << " ";
 		cout << "\n";
 		return;
 	}
