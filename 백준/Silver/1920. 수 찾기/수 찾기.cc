@@ -1,39 +1,47 @@
 #include <iostream>
+#include <vector>
 #include <algorithm>
 using namespace std;
 
-int arr[100001];
+vector<int> v;
 
-void binarySearch(int l, int h, int data) {
-	if (h < l) {
+void binarySearch(int a, int l, int h) {
+	int idx = (l + h) / 2;
+	if (h < l || idx < 0 || idx > v.size() - 1) {
 		cout << 0 << "\n";
 		return;
 	}
-	int idx = (l + h) / 2;
-
-	if (arr[idx] == data) {
+	
+	if (a > v[idx]) {
+		l = idx + 1;
+		binarySearch(a, l, h);
+	}
+	else if (a < v[idx]) {
+		h = idx - 1;
+		binarySearch(a, l, h);
+	}
+	else {
 		cout << 1 << "\n";
 		return;
 	}
-	else if (arr[idx] < data) binarySearch(idx + 1, h, data);
-	else binarySearch(l, idx - 1, data);
-}
 
+}
 
 int main() {
 	ios_base::sync_with_stdio(0);
 	cin.tie(0);
 
-	int n, m, data;
+	int n, m, x;
 	cin >> n;
 	for (int i = 0; i < n; i++) {
-		cin >> arr[i];
+		cin >> x;
+		v.push_back(x);
 	}
-	sort(arr, arr + n);
+	sort(v.begin(), v.end());
+
 	cin >> m;
 	for (int i = 0; i < m; i++) {
-		cin >> data;
-		binarySearch(0, n - 1, data);
+		cin >> x;
+		binarySearch(x, 0, v.size() - 1);
 	}
-
 }
