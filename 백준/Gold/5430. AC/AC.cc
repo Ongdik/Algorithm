@@ -38,18 +38,18 @@ int main() {
 		if (check) cout << "error\n";
 		else {
 			cout << "[";
-			while (dq.size() > 1) {
+			while (!dq.empty()) {
 				if (val == "front") {
-					cout << dq.front() << ",";
+					cout << dq.front();
 					dq.pop_front();
 				}
 				else {
-					cout << dq.back() << ",";
+					cout << dq.back();
 					dq.pop_back();
 				}
+				if (!dq.empty()) cout << ",";
 			}
-			if (!dq.empty()) cout << dq.front() << "]\n";
-			else cout << "]\n";
+			cout << "]\n";
 		}
 	}
 	
