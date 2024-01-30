@@ -1,22 +1,35 @@
 #include <iostream>
 using namespace std;
 
-#define MOD 1000000000
-int dp[201][201]{ 0 };
+int N, K;
+int dp[201][201];
+
+/*
+DP[a][b] = c
+a개를 더해서 그 합이 b가 되는 경우의 수는 c개입니다.
+
+점화식
+DP[K][N]=DP[K-1][0] + DP[K-1][1] + ... + DP[K-1][N]
+*/
 
 int main() {
-	ios_base::sync_with_stdio(0);
-	cin.tie(0);
 
-	int n, k;
-	cin >> n >> k;
+	ios::sync_with_stdio(false);
+	cin.tie(NULL);
+	cout.tie(NULL);
 
-	for (int i = 0; i <= n; i++) dp[1][i] = 1;
-	for (int i = 1; i <= k; i++) dp[i][0] = 1;
-	for (int i = 2; i <= k; i++) {
-		for (int j = 1; j <= n; j++) {
-			dp[i][j] = (dp[i - 1][j] + dp[i][j - 1]) % MOD;
+	cin >> N >> K;
+
+	for (int i = 0; i <= K; i++) dp[1][i] = i;
+
+
+	for (int i = 2; i <= N; i++) {
+		for (int j = 1; j <= K; j++) {
+			dp[i][j] = (dp[i - 1][j] + dp[i][j - 1]) % 1000000000;
 		}
 	}
-	cout << dp[k][n];
+
+	cout << dp[N][K] << "\n";
+
+	return 0;
 }
