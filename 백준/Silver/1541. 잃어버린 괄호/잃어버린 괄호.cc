@@ -1,24 +1,65 @@
 #include <iostream>
-#include <string>
+#include <stack>
+#include <cmath>
 using namespace std;
+
+stack<int> s;
+int ans = 0;
+int minusVal = 0;
+bool check = false;
 
 int main() {
 	ios_base::sync_with_stdio(0);
 	cin.tie(0);
 
 	string str;
-	string tmp = "";
 	cin >> str;
-	bool check = false;
-	int ans = 0;
+
 	for (int i = 0; i <= str.length(); i++) {
-		if (str[i] == '+' || str[i] == '-' || str[i] == '\0') {
-			if (check) ans -= stoi(tmp);
-			else ans += stoi(tmp);
-			tmp = "";
-			if (str[i] == '-') check = true;
+		if (str[i] >= '0' && str[i] <= '9') {
+			s.push(str[i] - '0');
 		}
-		else tmp += str[i];
+		else if (check) {
+			int sSize = s.size();
+			for (int i = 0; i < sSize; i++) {
+				minusVal += (s.top() * pow(10, i));
+				s.pop();
+			}
+		}
+		else if (str[i] == '+') {
+			int sSize = s.size();
+			for (int i = 0; i < sSize; i++) {
+				ans += (s.top() * pow(10, i));
+				s.pop();
+			}
+		}
+		else if (str[i] == '-') {
+			int sSize = s.size();
+			for (int i = 0; i < sSize; i++) {
+				ans += (s.top() * pow(10, i));
+				s.pop();
+			}
+			check = true;
+		}
 	}
-	cout << ans;
+
+	int sSize = s.size();
+
+	if (check) {
+		while (!s.empty()) {
+			for (int i = 0; i < sSize; i++) {
+				minusVal += (s.top() * pow(10, i));
+				s.pop();
+			}
+		}
+	}
+	else {
+		for (int i = 0; i < sSize; i++) {
+			ans += (s.top() * pow(10, i));
+			s.pop();
+		}
+	}
+
+	cout << ans - minusVal;
+
 }
