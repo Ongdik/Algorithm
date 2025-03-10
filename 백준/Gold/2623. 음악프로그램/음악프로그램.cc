@@ -3,8 +3,8 @@
 #include <queue>
 using namespace std;
 
-void topologySort(const vector<vector<int>>& graph,
-	vector<int>& inDegree, const int& n) {
+void topologySort(const vector<vector<int>>& graph
+	, vector<int>& inDegree, const int& n) {
 
 	queue<int> q;
 	vector<int> ans;
@@ -29,13 +29,12 @@ void topologySort(const vector<vector<int>>& graph,
 	}
 
 	if (ans.size() != n) {
-		cout << 0;
+		cout << 0 << "\n";
 		return;
 	}
-	else {
-		for (int i = 0; i < ans.size(); i++) {
-			cout << ans[i] << "\n";
-		}
+	
+	for (int i = 0; i < n; i++) {
+		cout << ans[i] << "\n";
 	}
 }
 
@@ -47,21 +46,20 @@ int main() {
 	cin >> n >> m;
 
 	vector<vector<int>> graph(n + 1);
-	vector<int> singer(n + 1, 0);
 	vector<int> inDegree(n + 1, 0);
-	
-	for (int i = 0; i < m; i++) {
+
+	while (m--) {
 		int cnt;
 		cin >> cnt;
 
-		vector<int> number(cnt, 0);
-		for (int j = 0; j < cnt; j++) {
-			cin >> number[j];
+		vector<int> singer(cnt, 0);
+		for (int i = 0; i < cnt; i++) {
+			cin >> singer[i];
 		}
 
-		for (int j = 0; j < cnt - 1; j++) {
-			int u = number[j];
-			int v = number[j + 1];
+		for (int i = 0; i < cnt - 1; i++) {
+			int u = singer[i];
+			int v = singer[i + 1];
 
 			graph[u].push_back(v);
 			inDegree[v]++;
@@ -69,4 +67,4 @@ int main() {
 	}
 
 	topologySort(graph, inDegree, n);
-;}
+}
