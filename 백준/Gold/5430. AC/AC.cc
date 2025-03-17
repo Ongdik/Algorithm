@@ -1,56 +1,74 @@
-#include <iostream>
-#include <string>
-#include <deque>
+#include <bits/stdc++.h>
 using namespace std;
 
 int main() {
 	ios_base::sync_with_stdio(0);
 	cin.tie(0);
 
+	// R 뒤집는 수, D 버리는 수
 	int t;
 	cin >> t;
+
 	while (t--) {
-		string cmd, str;
-		int cnt;
-		cin >> cmd >> cnt >> str;
-		deque<int> dq;
-		string tmp = "";
-		for (int i = 0; i < str.length(); i++) {
-			if (str[i] >= '0' && str[i] <= '9') tmp += str[i];
+		string cmd;
+		cin >> cmd;
+		int n;
+		cin >> n;
+		string input;
+		cin >> input;
+
+		deque<int> deq;
+		// check : true -> 정방향 , false -> 역방향
+		bool check = true;
+
+		string curNum = "";
+		for (int i = 1; i < input.size() - 1; i++) {
+			if (input[i] == ',') {
+				deq.push_back(stoi(curNum));
+				curNum = "";
+			}
 			else {
-				if (tmp != "") dq.push_back(stoi(tmp));
-				tmp = "";
+				curNum += input[i];
 			}
 		}
-		string val = "front";
-		bool check = false;
-		for (int i = 0; i < cmd.length(); i++) {
-			if (cmd[i] == 'R') val = (val == "front" ? "back" : "front");
+
+		if (curNum != "") deq.push_back(stoi(curNum));
+		
+		bool ifError = false;
+		for (int i = 0; i < cmd.size(); i++) {
+			if (cmd[i] == 'R') check = (!check);
 			else if (cmd[i] == 'D') {
-				if (dq.empty()) {
-					check = true;
+				if (deq.empty()) {
+					cout << "error\n";
+					ifError = true;
 					break;
 				}
-				if (val == "front") dq.pop_front();
-				else dq.pop_back();
-			}
-		}
-		if (check) cout << "error\n";
-		else {
-			cout << "[";
-			while (!dq.empty()) {
-				if (val == "front") {
-					cout << dq.front();
-					dq.pop_front();
+				if (check) {
+					deq.pop_front();
 				}
 				else {
-					cout << dq.back();
-					dq.pop_back();
+					deq.pop_back();
 				}
-				if (!dq.empty()) cout << ",";
+			}
+		}
+
+		
+		if (!ifError) {
+			cout << "[";
+			while (!deq.empty()) {
+				if (check) {
+					cout << deq.front();
+					deq.pop_front();
+				}
+				else {
+					cout << deq.back();
+					deq.pop_back();
+				}
+
+				if (!deq.empty()) cout << ",";
 			}
 			cout << "]\n";
 		}
+
 	}
-	
 }
