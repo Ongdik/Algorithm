@@ -13,9 +13,6 @@ void bfs(int num, const int& b) {
 		string curStr = q.front().second;
 		q.pop();
 
-		if (visited[curNum]) continue;
-		visited[curNum] = true;
-
 		if (curNum == b) {
 			cout << curStr << "\n";
 			return;
@@ -27,19 +24,19 @@ void bfs(int num, const int& b) {
 		int R = (curNum % 10) * 1000 + (curNum / 10);
 
 		if (!visited[D]) {
-			visited[curNum] = true;
+			visited[D] = true;
 			q.push({ D, curStr + "D" });
 		}
 		if (!visited[S]) {
-			visited[curNum] = true;
+			visited[S] = true;
 			q.push({ S, curStr + "S" });
 		}
 		if (!visited[L]) {
-			visited[curNum] = true;
+			visited[L] = true;
 			q.push({ L, curStr + "L" });
 		}
 		if (!visited[R]) {
-			visited[curNum] = true;
+			visited[R] = true;
 			q.push({ R, curStr + "R" });
 		}
 	}
