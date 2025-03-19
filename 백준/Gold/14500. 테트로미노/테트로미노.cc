@@ -29,15 +29,17 @@ void dfs(vector<vector<int>>& paper, vector<vector<bool>>& visited
 		}
 
 	}
+}
 
+void otherShape(const vector<vector<int>>& paper, int r, int c) {
 	// ㅓ
 	if (c - 1 >= 0 && r - 1 >= 0 && r + 1 < n) {
 		ans = max(ans, paper[r][c - 1] + paper[r - 1][c] + paper[r + 1][c] + paper[r][c]);
 	}
 	// ㅏ
 	if (c + 1 < m && r - 1 >= 0 && r + 1 < n) {
-	ans = max(ans, paper[r][c + 1] + paper[r - 1][c] + paper[r + 1][c] + paper[r][c]);
-}
+		ans = max(ans, paper[r][c + 1] + paper[r - 1][c] + paper[r + 1][c] + paper[r][c]);
+	}
 	// ㅗ
 	if (r - 1 >= 0 && c - 1 >= 0 && c + 1 < m) {
 		ans = max(ans, paper[r - 1][c] + paper[r][c - 1] + paper[r][c + 1] + paper[r][c]);
@@ -66,6 +68,7 @@ int main() {
 	for (int i = 0; i < n; i++) {
 		for (int j = 0; j < m; j++) {
 			dfs(paper, visited, i, j, 0, 0);
+			otherShape(paper, i, j);
 		}
 	}
 	
