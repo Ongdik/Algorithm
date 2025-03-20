@@ -1,4 +1,4 @@
-#include <iostream>
+#include <bits/stdc++.h>
 using namespace std;
 
 int main() {
@@ -6,23 +6,28 @@ int main() {
 	cin.tie(0);
 
 	int n, m;
-	string s;
-	cin >> n >> m >> s;
+	string str;
+	cin >> n >> m >> str;
 
-	int ans = 0;
-	for (int i = 0; i < m; i++) {
-		int cnt = 0;
-		if (s[i] == 'I') {
-			while (s[i + 1] == 'O' && s[i + 2] == 'I') {
-				i += 2;
+	int cnt = 0;
+
+	for (int i = 0; i < str.length(); i++) {
+		int length = 0;
+
+		if (str[i] == 'O') continue;
+
+		while (str[i + 1] == 'O' && str[i + 2] == 'I') {
+			length++;
+
+			if (length == n) {
 				cnt++;
-				if (cnt == n) {
-					cnt--;
-					ans++;
-				}
+				length--;
 			}
+			i += 2;
 		}
+
+		length = 0;
 	}
-	cout << ans;
-	
+
+	cout << cnt;
 }
