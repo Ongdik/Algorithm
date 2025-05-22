@@ -14,7 +14,10 @@ string solution(vector<string> participant, vector<string> completion) {
     }
     
     for (string name : participant) {
-        if (m.find(name) == m.end() || m[name] == 0) answer = name;
+        if (m.find(name) == m.end() || m[name] == 0) {
+            answer = name;
+            break;
+        }
         else m[name]--;
     }
     
